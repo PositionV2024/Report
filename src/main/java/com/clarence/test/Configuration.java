@@ -1,0 +1,69 @@
+package com.clarence.test;
+
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import java.io.File;
+import java.io.IOException;
+
+public class Configuration {
+    private File file;
+    private FileConfiguration fileConfiguration;
+    private static int OBJECT_COUNT = 0;
+
+    public Configuration(String name) {
+        OBJECT_COUNT++;
+        file = setupFile(name);
+        fileConfiguration = loadConfiguration(file);
+    }
+
+    public void addDefault(String path, Object value) {
+        fileConfiguration.addDefault(path, value);
+        fileConfiguration.options().copyDefaults(true);
+    }
+
+    private File setupFile(String name) {
+        File dataFolder = Test.getPlugin(Test.class).getDataFolder();
+
+        File file = new File(dataFolder, name);
+
+        if (!dataFolder.exists()) {
+            dataFolder.mkdirs();
+        }
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                Util.setConsoleMessage("Created a new file called as " + file.getName());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return file;
+    }
+    private FileConfiguration loadConfiguration(File file) {
+        FileConfiguration fileConfiguration;
+        fileConfiguration = YamlConfiguration.loadConfiguration(file);
+        Util.setConsoleMessage("Loaded in " + file.getName());
+        return  fileConfiguration;
+    }
+    public boolean hasUpdate() {
+        return fileConfiguration.getBoolean("enabled_update_notification");
+    }
+
+    public void saveConfiguration() {
+        try {
+            fileConfiguration.save(file);
+            Util.setConsoleMessage("Saved " + file.getName());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void reloadConfiguration(){
+        fileConfiguration = loadConfiguration(file);
+        Util.setConsoleMessage("Reloaded " + file.getName());
+    }
+
+    public static int getObjectCount() {return OBJECT_COUNT;}
+    public static void displayNumberOfConfigurationFiles() { Util.setConsoleMessage("Number of files " + Configuration.getObjectCount() + " in " + Test.getPlugin(Test.class).getDataFolder().getPath());}
+}
