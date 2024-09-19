@@ -47,8 +47,8 @@ public class Configuration {
         Util.setConsoleMessage("Loaded in " + file.getName());
         return  fileConfiguration;
     }
-    public boolean hasUpdate() {
-        return fileConfiguration.getBoolean("enabled_update_notification");
+    public boolean hasUpdate(String name) {
+        return fileConfiguration.getBoolean(name);
     }
 
     public void saveConfiguration() {
@@ -61,9 +61,7 @@ public class Configuration {
     }
     public void reloadConfiguration(){
         fileConfiguration = loadConfiguration(file);
-        Util.setConsoleMessage("Reloaded " + file.getName());
     }
-
     public static int getObjectCount() {return OBJECT_COUNT;}
     public static void displayNumberOfConfigurationFiles() { Util.setConsoleMessage("Number of files " + Configuration.getObjectCount() + " in " + Test.getPlugin(Test.class).getDataFolder().getPath());}
 }

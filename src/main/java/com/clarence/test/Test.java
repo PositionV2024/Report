@@ -8,7 +8,6 @@ import java.util.concurrent.CompletionException;
 public final class Test extends JavaPlugin {
     private Configuration reportConfiguration, defaultConfiguration;
     private UpdateChecker updateChecker;
-
     @Override
     public void onEnable() {
         Test getPlugin = getPlugin(getClass());
@@ -16,8 +15,8 @@ public final class Test extends JavaPlugin {
         createConfigurations();
         Configuration.displayNumberOfConfigurationFiles();
 
-        if (defaultConfiguration.hasUpdate()) {
-            updateChecker = createUpdateCheckerObject("PositionV2024", getPlugin.getDescription().getName(), getPlugin.getDescription().getVersion());
+        if (defaultConfiguration.hasUpdate("enabled_updates")) {
+            updateChecker = createUpdateCheckerObject(getPlugin.getDescription().getAuthors().getFirst(), getPlugin.getDescription().getName(), getPlugin.getDescription().getVersion());
             try {
                 updateChecker.check();
                 updateChecker.logUpdateMessage(getLogger());
@@ -34,12 +33,13 @@ public final class Test extends JavaPlugin {
     private UpdateChecker createUpdateCheckerObject(String author, String repoName, String currentVersion) { return new UpdateChecker(author, repoName, currentVersion);}
     private void createConfigurations() {
         defaultConfiguration = createConfigurationObject("config");
-        defaultConfiguration.addDefault("enabled_update_notification", true);
+        defaultConfiguration.addDefault("enabled_updates", true);
         defaultConfiguration.saveConfiguration();
 
         reportConfiguration = createConfigurationObject("report");
         reportConfiguration.saveConfiguration();
     }
+    public void setUpdateChecker(UpdateChecker updateChecker) { this.updateChecker = updateChecker; }
     public UpdateChecker getUpdateChecker() {return updateChecker; }
     public Configuration getReportConfiguration() {return reportConfiguration; }
     public Configuration getDefaultConfiguration() {return defaultConfiguration; }

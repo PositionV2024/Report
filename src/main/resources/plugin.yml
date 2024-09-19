@@ -2,5 +2,6 @@ name: Test
 version: ${project.version}
 main: com.clarence.test.Test
 api-version: '1.21'
+author: PositionV2024
 commands:
   report:
