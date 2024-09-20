@@ -12,22 +12,19 @@ import org.bukkit.profile.PlayerProfile;
 import java.util.List;
 
 public class inventory {
-    private int size;
-    private String title;
-    private InventoryHolder owner;
+
     private Inventory inventory;
+    private int[] slots = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26};
 
     public inventory (InventoryHolder owner, int size, String title) {
-        this.owner = owner;
-        this.size = size;
-        this.title = title;
+        createInventory(owner, size, title);
     }
-    public void createInventory() {
-        inventory = Bukkit.createInventory(this.owner, this.size, this.title);
+    private void createInventory(InventoryHolder owner, int size, String title) {
+        inventory = Bukkit.createInventory(owner, size, title);
     }
     public Inventory getInventory() {return inventory; }
-    public void generateDefaultItems(Material MaterialType, int amount, List<Integer> slots) {
-        for (int i : slots) {
+    public void generateDefaultItems(Material MaterialType, int amount) {
+        for (int i : new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25}) {
             ItemStack itemStack = new ItemStack(MaterialType, amount);
             itemStack.addUnsafeEnchantment(Enchantment.UNBREAKING, 10);
             inventory.setItem(i, itemStack);

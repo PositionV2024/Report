@@ -6,9 +6,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.profile.PlayerProfile;
 
 public class reportCommand implements CommandExecutor {
     private Test test = null;
@@ -77,17 +77,23 @@ public class reportCommand implements CommandExecutor {
             Util.setPlayerMessage(player, exist);
             return;
         }
-        inventory inventory = new inventory(null, InventoryType.CHEST.getDefaultSize(), "Report " + target.getDisplayName());
-        inventory.createInventory();
+        inventory inventory = new inventory(null, InventoryType.CHEST.getDefaultSize(), "Report");
 
-        List<Integer> slots = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
-            slots.add(i);
+        ItemStack itemStack = inventory.createItemStack(Material.PLAYER_HEAD, 1);
+        SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
+        PlayerProfile profile = target.getPlayerProfile();
+        profile.setTextures(target.getPlayerProfile().getTextures());
+
+        if (!skullMeta.hasOwner()) {
+            skullMeta.setOwnerProfile(profile);
+            skullMeta.setDisplayName(profile.getName());
         }
-        for (int i = 18; i < 27; i++) {
-            slots.add(i);
-        }
-        inventory.generateDefaultItems(Material.PURPLE_STAINED_GLASS_PANE, 1, slots);
+
+        itemStack.setItemMeta(skullMeta);
+
+        inventory.getInventory().setItem(11, itemStack);
+
+        inventory.generateDefaultItems(Material.PURPLE_STAINED_GLASS_PANE, 1);
         player.openInventory(inventory.getInventory());
     }
 }
