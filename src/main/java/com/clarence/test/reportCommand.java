@@ -1,14 +1,10 @@
 package com.clarence.test;
 
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.profile.PlayerProfile;
 
 public class reportCommand implements CommandExecutor {
     private Test test = null;
@@ -77,23 +73,7 @@ public class reportCommand implements CommandExecutor {
             Util.setPlayerMessage(player, exist);
             return;
         }
-        inventory inventory = new inventory(null, InventoryType.CHEST.getDefaultSize(), "Report");
-
-        ItemStack itemStack = inventory.createItemStack(Material.PLAYER_HEAD, 1);
-        SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
-        PlayerProfile profile = target.getPlayerProfile();
-        profile.setTextures(target.getPlayerProfile().getTextures());
-
-        if (!skullMeta.hasOwner()) {
-            skullMeta.setOwnerProfile(profile);
-            skullMeta.setDisplayName(profile.getName());
-        }
-
-        itemStack.setItemMeta(skullMeta);
-
-        inventory.getInventory().setItem(11, itemStack);
-
-        inventory.generateDefaultItems(Material.PURPLE_STAINED_GLASS_PANE, 1);
+        inventory inventory = new inventory(target, null, InventoryType.CHEST.getDefaultSize(), "Report");
         player.openInventory(inventory.getInventory());
     }
 }
