@@ -73,7 +73,16 @@ public class reportCommand implements CommandExecutor {
             Util.setPlayerMessage(player, exist);
             return;
         }
-        inventory inventory = new inventory(target, null, InventoryType.CHEST.getDefaultSize(), "Report");
-        player.openInventory(inventory.getInventory());
+
+        if (args.length == 1) {
+            String invalid = "Enter a reason on why you report this player";
+            Util.setPlayerMessage(player, invalid);
+            return;
+        }
+
+        StringBuilder stringBuilder = Util.stringBuilder(args, 1);
+        inventory.setReason(stringBuilder.toString().strip().toUpperCase() + ".");
+
+        inventory.createInventory(player, target, null, InventoryType.CHEST.getDefaultSize(), "Report");
     }
 }

@@ -17,6 +17,14 @@ public class Util {
         }
         player.sendMessage(setColor(getBlueColor() + "[" + getPluginName() + "] » " + message));
     }
+    public static StringBuilder stringBuilder(String[] totalLength, int buildFrom) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = buildFrom; i < totalLength.length; i++) {
+            stringBuilder.append(totalLength[i]).append(" ");
+        }
+        return stringBuilder;
+    }
     private static String setColor(String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
     }
