@@ -1,10 +1,10 @@
 package com.clarence.test;
 
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryType;
 
 public class reportCommand implements CommandExecutor {
     private Test test = null;
@@ -80,9 +80,15 @@ public class reportCommand implements CommandExecutor {
             return;
         }
 
-        StringBuilder stringBuilder = Util.stringBuilder(args, 1);
-        inventory.setReason(stringBuilder.toString().strip().toUpperCase() + ".");
+        inventory inventory = Util.createNewInventory(null, "Report");
 
-        inventory.createInventory(player, target, null, InventoryType.CHEST.getDefaultSize(), "Report");
+        StringBuilder stringBuilder = Util.createNewStringBuilder(args, 1);
+        String reportReason = stringBuilder.toString().strip().toUpperCase();
+
+       inventory.createHeadWithDataContainer(target, 1, target.getDisplayName(), 11);
+       inventory.createItemStack(Material.BARRIER, 1, Util.format("Report reason", Util.getGreenColor() + "&l"), Util.format(reportReason, Util.getBlueColor() + "&l"), 13);
+       inventory.createItemStackWithDataContainer(Material.DIAMOND_AXE, 1, Util.format(itemDataNames.CONFIRM.getName(), Util.getGreenColor() + "&l"), Util.format("Submit Report", Util.getBlueColor() + "&l"), itemDataNames.CONFIRM.getName(), 15);
+
+        player.openInventory(inventory.getInventory());
     }
 }

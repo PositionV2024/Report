@@ -1,6 +1,7 @@
 package com.clarence.test;
 
 import com.technicjelle.UpdateChecker;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.concurrent.CompletionException;
@@ -26,7 +27,7 @@ public final class Test extends JavaPlugin {
                 updateChecker = null;
             }
         }
-
+        Bukkit.getPluginManager().registerEvents(new listener(), this);
         getCommand("report").setExecutor(new reportCommand(this));
     }
     private Configuration createConfigurationObject(String name) { return new Configuration( name + ".yml"); }

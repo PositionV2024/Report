@@ -21,6 +21,9 @@ public class Configuration {
         fileConfiguration.addDefault(path, value);
         fileConfiguration.options().copyDefaults(true);
     }
+    public void setValue() {
+
+    }
 
     private File setupFile(String name) {
         File dataFolder = Test.getPlugin(Test.class).getDataFolder();

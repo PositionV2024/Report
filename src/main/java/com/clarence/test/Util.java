@@ -2,7 +2,10 @@ package com.clarence.test;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.InventoryHolder;
 
 public class Util {
     public static void setConsoleMessage(String message) {
@@ -17,7 +20,7 @@ public class Util {
         }
         player.sendMessage(setColor(getBlueColor() + "[" + getPluginName() + "] » " + message));
     }
-    public static StringBuilder stringBuilder(String[] totalLength, int buildFrom) {
+    public static StringBuilder createNewStringBuilder(String[] totalLength, int buildFrom) {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = buildFrom; i < totalLength.length; i++) {
@@ -25,7 +28,7 @@ public class Util {
         }
         return stringBuilder;
     }
-    private static String setColor(String message) {
+    public static String setColor(String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
     }
     private static String getPluginName(){
@@ -39,5 +42,17 @@ public class Util {
     }
     private static void setLogger(String message) {
         Bukkit.getLogger().info(message);
+    }
+    public static inventory createNewInventory(InventoryHolder owner, String title) {
+        return new inventory(owner, InventoryType.CHEST.getDefaultSize(), title);
+    }
+    public static String format(String name, String color) {
+        return inventory.format(name, color);
+    }
+    public static NamespacedKey getItemData(){
+        return inventory.getItemData();
+    }
+    public static int[] getEmptySlots() {
+        return inventory.getEmptySlots();
     }
 }
