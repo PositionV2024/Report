@@ -1,7 +1,8 @@
 package com.clarence.test;
 
 public enum itemDataNames {
-    CONFIRM("Confirm");
+    CONFIRM("Confirm"),
+    BACK("Back");
 
     private String name;
     itemDataNames(String name) {

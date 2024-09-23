@@ -8,6 +8,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.InventoryHolder;
 
 public class Util {
+    private static String builderMessage = null;
     public static void setConsoleMessage(String message) {
         setLogger("[" + getPluginName() + "] " + message);
     }
@@ -26,6 +27,7 @@ public class Util {
         for (int i = buildFrom; i < totalLength.length; i++) {
             stringBuilder.append(totalLength[i]).append(" ");
         }
+        builderMessage = stringBuilder.toString().strip();
         return stringBuilder;
     }
     public static String setColor(String message) {
@@ -55,4 +57,5 @@ public class Util {
     public static int[] getEmptySlots() {
         return inventory.getEmptySlots();
     }
+    public static String getBuilderMessage() { return builderMessage;}
 }

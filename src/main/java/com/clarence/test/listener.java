@@ -12,6 +12,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 
 public class listener implements Listener {
+    private String targetName;
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
@@ -26,14 +27,18 @@ public class listener implements Listener {
         if (dataContainer.has(key)) {
             switch (dataContainer.get(key, PersistentDataType.STRING)) {
                 case "Confirm":
-                    Util.setPlayerMessage(player, "Confirm");
+                    Util.setPlayerMessage(player, "You have reported " + Util.getGreenColor() + "x" + Util.getBlueColor() + " for " + Util.getGreenColor() + reportCommand.getUuidStringHashMap().get(player.getUniqueId()));
+                    break;
+                case "Back":
+                    player.openInventory(reportCommand.getUuiDinventoryHashMap().get(player.getUniqueId()).getInventory());
                     break;
                 default:
+                    targetName = dataContainer.get(key, PersistentDataType.STRING);
                     inventory inventory = Util.createNewInventory(null, "Player information");
 
                     for (int i = 0; i < getEmptySlots.length; i++) {
                         if (i == 0) {
-                            inventory.createItemStack(Material.BOOK, 1, Util.format("UNKNOWN", Util.getGreenColor() + "&l"), Util.format("UNKNOWN", Util.getBlueColor() + "&l"), getEmptySlots[i]);
+                            inventory.createItemStackWithDataContainer(Material.BOOK, 1, Util.format("UNKNOWN", Util.getGreenColor() + "&l"), Util.format("UNKNOWN", Util.getBlueColor() + "&l"), itemDataNames.BACK.getName(), getEmptySlots[i]);
                         } else {
                             inventory.createItemStack(Material.BOOK, 1, Util.format("UNKNOWN " + i, Util.getGreenColor() + "&l"), Util.format("UNKNOWN " + i, Util.getBlueColor() + "&l"), getEmptySlots[i]);
                         }

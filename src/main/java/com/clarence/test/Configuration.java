@@ -21,8 +21,11 @@ public class Configuration {
         fileConfiguration.addDefault(path, value);
         fileConfiguration.options().copyDefaults(true);
     }
-    public void setValue() {
-
+    public void setValue(String path, Object value) {
+        fileConfiguration.set(path, value);
+    }
+    public void createSection(String path) {
+        fileConfiguration.createSection(path);
     }
 
     private File setupFile(String name) {

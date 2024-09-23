@@ -28,7 +28,7 @@ public final class Test extends JavaPlugin {
             }
         }
         Bukkit.getPluginManager().registerEvents(new listener(), this);
-        getCommand("report").setExecutor(new reportCommand(this));
+        getCommand("report").setExecutor(new reportCommand());
     }
     private Configuration createConfigurationObject(String name) { return new Configuration( name + ".yml"); }
     private UpdateChecker createUpdateCheckerObject(String author, String repoName, String currentVersion) { return new UpdateChecker(author, repoName, currentVersion);}
