@@ -6,14 +6,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
 import java.util.UUID;
 
 public class reportCommand implements CommandExecutor {
     private Test test = null;
-
-    private static HashMap<UUID, inventory> uuiDinventoryHashMap = new HashMap<>();
-    private static HashMap<UUID, String> uuidStringHashMap = new HashMap<>();
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
         if (!(sender instanceof Player player)) {
@@ -89,15 +85,16 @@ public class reportCommand implements CommandExecutor {
 
         StringBuilder stringBuilder = Util.createNewStringBuilder(args, 1);
 
-       inventory.createHeadWithDataContainer(target, 1, target.getDisplayName(), 11);
+        String getReason = stringBuilder.toString().strip();
 
-       inventory.createItemStack(Material.BARRIER, 1, Util.format("Report reason", Util.getGreenColor() + "&l"), Util.format(Util.getBuilderMessage(), Util.getBlueColor() + "&l"), 13);
+       inventory.createHeadWithDataContainer(target, 1, target.getDisplayName(), 11);
+       inventory.createItemStack(Material.BARRIER, 1, Util.format("Report reason", Util.getGreenColor() + "&l"), Util.format(getReason, Util.getBlueColor() + "&l"), 13);
        inventory.createItemStackWithDataContainer(Material.DIAMOND_AXE, 1, Util.format(itemDataNames.CONFIRM.getName(), Util.getGreenColor() + "&l"), Util.format("Submit Report", Util.getBlueColor() + "&l"), itemDataNames.CONFIRM.getName(), 15);
 
-        uuidStringHashMap.put(playerUUID, Util.getBuilderMessage());
-        uuiDinventoryHashMap.put(playerUUID, inventory);
+       Util.getUniqueTarget().put(playerUUID, target);
+        Util.getUniqueReportReason().put(playerUUID, getReason);
+        Util.getUniqueInventory().put(playerUUID, inventory);
+
         player.openInventory(inventory.getInventory());
     }
-    public static HashMap<UUID, inventory> getUuiDinventoryHashMap() { return uuiDinventoryHashMap; }
-    public static HashMap<UUID, String> getUuidStringHashMap() { return uuidStringHashMap; }
 }

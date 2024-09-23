@@ -7,8 +7,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.InventoryHolder;
 
+import java.util.HashMap;
+import java.util.UUID;
+
 public class Util {
-    private static String builderMessage = null;
+    private static final HashMap<UUID, inventory> uniqueInventory = new HashMap<>();
+    private static final HashMap<UUID, String> uniqueReportReason = new HashMap<>();
+    private static final HashMap<UUID, UUID> uniqueTarget = new HashMap<>();
+
     public static void setConsoleMessage(String message) {
         setLogger("[" + getPluginName() + "] " + message);
     }
@@ -27,7 +33,6 @@ public class Util {
         for (int i = buildFrom; i < totalLength.length; i++) {
             stringBuilder.append(totalLength[i]).append(" ");
         }
-        builderMessage = stringBuilder.toString().strip();
         return stringBuilder;
     }
     public static String setColor(String message) {
@@ -57,5 +62,7 @@ public class Util {
     public static int[] getEmptySlots() {
         return inventory.getEmptySlots();
     }
-    public static String getBuilderMessage() { return builderMessage;}
+    public static HashMap<UUID, inventory> getUniqueInventory() {return uniqueInventory;}
+    public static HashMap<UUID, String> getUniqueReportReason() {return uniqueReportReason;}
+    public static HashMap<UUID, UUID> getUniqueTarget() {return uniqueTarget;}
 }
