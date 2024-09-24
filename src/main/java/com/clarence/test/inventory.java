@@ -38,13 +38,11 @@ public class inventory {
             increaseNumberOfItems();
         }
     }
-    public void createHeadWithDataContainer(Player playerProfile, int amount, String item_Data, int slot) {
+    public void createHead(Player playerProfile, int amount, int slot) {
         ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD, amount);
 
         SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
         PlayerProfile profile = playerProfile.getPlayerProfile();
-        PersistentDataContainer dataContainer = skullMeta.getPersistentDataContainer();
-        dataContainer.set(itemData, PersistentDataType.STRING, item_Data);
 
         if (!skullMeta.hasOwner()) {
             skullMeta.setOwnerProfile(profile);

@@ -47,48 +47,58 @@ public class listener implements Listener {
                     Set<String> configKeys = test.getReportConfiguration().getConfigkKeys(false);
 
                     if (configKeys.contains(Util.getUniqueTarget().get(playerUUID).getPlayerUuid().toString())) {
-                        ConfigurationSection configurationSection = test.getReportConfiguration().getSection(Util.getUniqueTarget().get(playerUUID).getPlayerUuid().toString());
 
-                        List<String> reasonList = configurationSection.getStringList("reason");
-                        List<String> reportedByList = configurationSection.getStringList("reported by");
-                        List<String> dateList = configurationSection.getStringList("date");
-
-                        reasonList.add(Util.getUniqueTarget().get(playerUUID).getReason());
-                        dateList.add(formattedGeneralDate + " : " + formmattedDetailedDate);
-                        reportedByList.add(player.getName() + " : " + playerUUID);
-
-                        configurationSection.set("reason", reasonList);
-                        configurationSection.set("date", dateList);
-                        configurationSection.set("reported by", reportedByList);
+                        addReport(player, playerUUID, formattedGeneralDate, formmattedDetailedDate, 1);
 
                         test.getReportConfiguration().saveConfiguration();
-
                         player.closeInventory();
                         return;
                     }
 
-                    Util.setPlayerMessage(player, "You have reported " + Util.getGreenColor() + Util.getUniqueTarget().get(playerUUID).getPlayerName() + Util.getBlueColor() + " for " + Util.getGreenColor() + Util.getUniqueTarget().get(playerUUID).getReason() + Util.getBlueColor() + " at " + Util.getGreenColor() + formattedGeneralDate + " " + Util.getBlueColor() +  " : " + Util.getGreenColor() + formmattedDetailedDate);
-
-                    ConfigurationSection configurationSection = configurationSection = test.getReportConfiguration().createSection(Util.getUniqueTarget().get(playerUUID).getPlayerUuid().toString());
-                    configurationSection.set("name", Arrays.asList(Util.getUniqueTarget().get(playerUUID).getPlayerName()));
-                    configurationSection.set("reason", Arrays.asList(Util.getUniqueTarget().get(playerUUID).getReason()));
-                    configurationSection.set("reported by", Arrays.asList(player.getName() + " : " + playerUUID));
-                    configurationSection.set("date", Arrays.asList(formattedGeneralDate + " : " + formmattedDetailedDate));
+                    reportOnce(player, playerUUID, formattedGeneralDate, formmattedDetailedDate, 1);
 
                     test.getReportConfiguration().saveConfiguration();
+                    player.closeInventory();
                     break;
                 case "Back":
                     player.openInventory(Util.getUniqueInventory().get(player.getUniqueId()).getInventory());
-                    break;
-                default:
-                    inventory inventory = Util.createNewInventory(null, "Player information");
-
-                    inventory.createItemStackWithDataContainer(Material.BARRIER, 1, Util.format("Go back", Util.getGreenColor() + "&l"), Util.format("Go back", Util.getBlueColor() + "&l"), itemDataNames.BACK.getName(), 11);
-                    player.openInventory(inventory.getInventory());
                     break;
             }
         }
 
         e.setCancelled(true);
+    }
+
+    private void reportOnce(Player player, UUID playerUUID, String formattedGeneralDate, String formmattedDetailedDate, int reportAmount) {
+        Util.setPlayerMessage(player, "You have reported " + Util.getGreenColor() + Util.getUniqueTarget().get(playerUUID).getPlayerName() + Util.getBlueColor() + " for " + Util.getGreenColor() + Util.getUniqueTarget().get(playerUUID).getReason());
+
+        ConfigurationSection configurationSection = configurationSection = test.getReportConfiguration().createSection(Util.getUniqueTarget().get(playerUUID).getPlayerUuid().toString());
+        configurationSection.set("name", Arrays.asList(Util.getUniqueTarget().get(playerUUID).getPlayerName()));
+        configurationSection.set("reason", Arrays.asList(Util.getUniqueTarget().get(playerUUID).getReason()));
+        configurationSection.set("reported by", Arrays.asList(player.getName() + " : " + playerUUID));
+        configurationSection.set("date", Arrays.asList(formattedGeneralDate + " : " + formmattedDetailedDate));
+        configurationSection.set("Player reported amount",reportAmount);
+
+    }
+    private void addReport(Player player, UUID playerUUID, String formattedGeneralDate, String formmattedDetailedDate, int reportAmount) {
+        Util.setPlayerMessage(player, "You have reported " + Util.getGreenColor() + Util.getUniqueTarget().get(playerUUID).getPlayerName() + Util.getBlueColor() + " for " + Util.getGreenColor() + Util.getUniqueTarget().get(playerUUID).getReason());
+
+        ConfigurationSection configurationSection = test.getReportConfiguration().getSection(Util.getUniqueTarget().get(playerUUID).getPlayerUuid().toString());
+
+        List<String> reasonList = configurationSection.getStringList("reason");
+        List<String> reportedByList = configurationSection.getStringList("reported by");
+        List<String> dateList = configurationSection.getStringList("date");
+
+        reasonList.add(Util.getUniqueTarget().get(playerUUID).getReason());
+        dateList.add(formattedGeneralDate + " : " + formmattedDetailedDate);
+        reportedByList.add(player.getName() + " : " + playerUUID);
+
+        int amount = configurationSection.getInt("Player reported amount", 0) + reportAmount;
+
+        configurationSection.set("reason", reasonList);
+        configurationSection.set("date", dateList);
+        configurationSection.set("reported by", reportedByList);
+        configurationSection.set("Player reported amount", amount);
+
     }
 }

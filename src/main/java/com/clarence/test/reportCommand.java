@@ -1,6 +1,8 @@
 package com.clarence.test;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -26,6 +28,9 @@ public class reportCommand implements CommandExecutor {
         }
 
         switch (args[0]) {
+            case "clear":
+                clear(player, args);
+                break;
             case "help":
                 help(player);
                 break;
@@ -67,6 +72,18 @@ public class reportCommand implements CommandExecutor {
 
         Util.setPlayerMessage(player, reloadMessage);
     }
+    private void clear(Player player, String[] args) {
+        if (args.length == 1) {
+            Util.setPlayerMessage(player, "Please specify a player");
+            return;
+        }
+
+        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[1]);
+
+        if (!offlinePlayer.hasPlayedBefore()) { Util.setPlayerMessage(player, "The specified player doesn't exist or is not online"); return; }
+
+        Util.setPlayerMessage(player, "Cleared " + Util.getGreenColor() + offlinePlayer.getName() + Util.getBlueColor() + " report");
+    }
     private void report(Player player, String[] args){
         Player target = player.getServer().getPlayerExact(args[0]);
 
@@ -91,7 +108,7 @@ public class reportCommand implements CommandExecutor {
 
         String getReason = stringBuilder.toString().strip();
 
-       inventory.createHeadWithDataContainer(target, 1, target.getDisplayName(), 11);
+       inventory.createHead(target, 1, 11);
        inventory.createItemStack(Material.BARRIER, 1, Util.format("Report reason", Util.getGreenColor() + "&l"), Util.format(getReason, Util.getBlueColor() + "&l"), 13);
        inventory.createItemStackWithDataContainer(Material.DIAMOND_AXE, 1, Util.format(itemDataNames.CONFIRM.getName(), Util.getGreenColor() + "&l"), Util.format("Submit Report", Util.getBlueColor() + "&l"), itemDataNames.CONFIRM.getName(), 15);
 
