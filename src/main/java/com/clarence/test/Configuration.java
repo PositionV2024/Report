@@ -1,10 +1,12 @@
 package com.clarence.test;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 
 public class Configuration {
     private File file;
@@ -21,11 +23,15 @@ public class Configuration {
         fileConfiguration.addDefault(path, value);
         fileConfiguration.options().copyDefaults(true);
     }
-    public void setValue(String path, Object value) {
-        fileConfiguration.set(path, value);
+    public ConfigurationSection createSection(String path) {
+        return fileConfiguration.createSection(path);
     }
-    public void createSection(String path) {
-        fileConfiguration.createSection(path);
+
+    public Set<String> getConfigkKeys(boolean isDeep) {
+        return fileConfiguration.getKeys(isDeep);
+    }
+    public ConfigurationSection getSection(String path) {
+       return fileConfiguration.getConfigurationSection(path);
     }
 
     private File setupFile(String name) {

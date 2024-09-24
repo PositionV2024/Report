@@ -10,6 +10,9 @@ import java.util.UUID;
 
 public class reportCommand implements CommandExecutor {
     private Test test = null;
+    public reportCommand(Test test) {
+        this.test=test;
+    }
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
         if (!(sender instanceof Player player)) {
@@ -79,7 +82,8 @@ public class reportCommand implements CommandExecutor {
             return;
         }
 
-        UUID playerUUID = player.getUniqueId();
+        UUID playerUUID = getUUID(player);
+        UUID targetUUID = getUUID(target);
 
         inventory inventory = Util.createNewInventory(null, "Report");
 
@@ -91,10 +95,12 @@ public class reportCommand implements CommandExecutor {
        inventory.createItemStack(Material.BARRIER, 1, Util.format("Report reason", Util.getGreenColor() + "&l"), Util.format(getReason, Util.getBlueColor() + "&l"), 13);
        inventory.createItemStackWithDataContainer(Material.DIAMOND_AXE, 1, Util.format(itemDataNames.CONFIRM.getName(), Util.getGreenColor() + "&l"), Util.format("Submit Report", Util.getBlueColor() + "&l"), itemDataNames.CONFIRM.getName(), 15);
 
-       Util.getUniqueTarget().put(playerUUID, target);
-        Util.getUniqueReportReason().put(playerUUID, getReason);
+        Util.getUniqueTarget().put(playerUUID, new targetData(targetUUID, target.getDisplayName(), getReason));
         Util.getUniqueInventory().put(playerUUID, inventory);
 
         player.openInventory(inventory.getInventory());
+    }
+    private UUID getUUID(Player player) {
+        return player.getUniqueId();
     }
 }

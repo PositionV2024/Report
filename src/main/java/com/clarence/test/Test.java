@@ -27,8 +27,8 @@ public final class Test extends JavaPlugin {
                 updateChecker = null;
             }
         }
-        Bukkit.getPluginManager().registerEvents(new listener(), this);
-        getCommand("report").setExecutor(new reportCommand());
+        Bukkit.getPluginManager().registerEvents(new listener(this), this);
+        getCommand("report").setExecutor(new reportCommand(this));
     }
     private Configuration createConfigurationObject(String name) { return new Configuration( name + ".yml"); }
     private UpdateChecker createUpdateCheckerObject(String author, String repoName, String currentVersion) { return new UpdateChecker(author, repoName, currentVersion);}
@@ -40,7 +40,6 @@ public final class Test extends JavaPlugin {
         reportConfiguration = createConfigurationObject("report");
         reportConfiguration.saveConfiguration();
     }
-    public void setUpdateChecker(UpdateChecker updateChecker) { this.updateChecker = updateChecker; }
     public UpdateChecker getUpdateChecker() {return updateChecker; }
     public Configuration getReportConfiguration() {return reportConfiguration; }
     public Configuration getDefaultConfiguration() {return defaultConfiguration; }

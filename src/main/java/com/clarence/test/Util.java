@@ -12,9 +12,11 @@ import java.util.UUID;
 
 public class Util {
     private static final HashMap<UUID, inventory> uniqueInventory = new HashMap<>();
-    private static final HashMap<UUID, String> uniqueReportReason = new HashMap<>();
-    private static final HashMap<UUID, UUID> uniqueTarget = new HashMap<>();
+    private static final HashMap<UUID, targetData> uniqueTarget = new HashMap<>();
 
+    private Util() {
+
+    }
     public static void setConsoleMessage(String message) {
         setLogger("[" + getPluginName() + "] " + message);
     }
@@ -63,6 +65,5 @@ public class Util {
         return inventory.getEmptySlots();
     }
     public static HashMap<UUID, inventory> getUniqueInventory() {return uniqueInventory;}
-    public static HashMap<UUID, String> getUniqueReportReason() {return uniqueReportReason;}
-    public static HashMap<UUID, UUID> getUniqueTarget() {return uniqueTarget;}
+    public static HashMap<UUID, targetData> getUniqueTarget() {return uniqueTarget;}
 }
