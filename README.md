@@ -3,7 +3,7 @@
 Dummy description for dummy.
 ## Features
 ### Report data
-When you report a player, a report data will be generated in the report.yml. This includes, the name of the player that is reported, the name of the player that reports, the reported reason, and finally, the time that time report was made.
+When you report a player, a report data will be generated in the report.yml. This includes, the name of the player that is reported, the name of the player that reports, the reported reason, and finally, the time that report was made.
 ## report.yml (example)
 ```
 f798e323-b270-30de-9547-b053e429138b:
