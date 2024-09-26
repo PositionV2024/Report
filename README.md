@@ -12,18 +12,13 @@ f798e323-b270-30de-9547-b053e429138b:
   name:
   - '233'
   reason:
-  - example_reason (0)
-  - example_reason (1)
-  - example_reason (2)
-  - example_reason (3)
+  - Example reason 1
+  - Example reason 2
   reported by:
-  - '233 : f798e323-b270-30de-9547-b053e429138b'
-  - '233 : f798e323-b270-30de-9547-b053e429138b'
-  - '233 : f798e323-b270-30de-9547-b053e429138b'
-  - '233 : f798e323-b270-30de-9547-b053e429138b'
+  - PositionV
+  - popo
   date:
-  - '2024-09-24 : 11-31-14'
-  - '2024-09-24 : 11-31-22'
-  - '2024-09-24 : 11-31-28'
-  - '2024-09-24 : 11-31-38'
+  - '2024-09-26 : 21-47-22'
+  - '2024-09-26 : 21-50-14'
+  Player reported amount: 2
 ```
