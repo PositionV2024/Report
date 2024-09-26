@@ -26,12 +26,18 @@ public class Configuration {
     public ConfigurationSection createSection(String path) {
         return fileConfiguration.createSection(path);
     }
-
-    public Set<String> getConfigkKeys(boolean isDeep) {
+    public boolean hasSectionPath(String path) {
+        return fileConfiguration.getConfigurationSection(path) != null;
+    }
+    public Set<String> getConfigKeys(boolean isDeep) {
         return fileConfiguration.getKeys(isDeep);
     }
     public ConfigurationSection getSection(String path) {
        return fileConfiguration.getConfigurationSection(path);
+    }
+
+    public void set(String path, Object value) {
+        fileConfiguration.set(path, value);
     }
 
     private File setupFile(String name) {

@@ -6,8 +6,11 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class reportCommand implements CommandExecutor {
@@ -28,6 +31,9 @@ public class reportCommand implements CommandExecutor {
         }
 
         switch (args[0]) {
+            case "show":
+                show(player, args);
+                break;
             case "clear":
                 clear(player, args);
                 break;
@@ -46,6 +52,45 @@ public class reportCommand implements CommandExecutor {
         }
         return false;
     }
+
+    private void show(Player player, String[] args) {
+        String message = "Command usage: " + Util.getGreenColor() + "/report show <player>";
+
+        if (args.length == 1) {
+            Util.setPlayerMessage(player, message);
+            return;
+        }
+
+        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[1]);
+
+        if (!offlinePlayer.hasPlayedBefore()) { Util.setPlayerMessage(player, "The specified player doesn't exist or is not online"); return; }
+
+        if (!test.getReportConfiguration().hasSectionPath(offlinePlayer.getUniqueId().toString())) { Util.setPlayerMessage(player, "The specified player does not have any report"); return; }
+
+        ConfigurationSection configurationSection = test.getReportConfiguration().getSection(offlinePlayer.getUniqueId().toString());
+
+        List<String> configKeys = new ArrayList<>(configurationSection.getKeys(true));
+
+        for (int i = 0; i < configKeys.size(); i++) {
+            String dataName = configKeys.get(i);
+
+            switch (dataName) {
+                case "name":
+                    Util.setPlayerMessage(player, "Name: " + Util.getGreenColor() + configurationSection.get("name"));
+                    break;
+                case "reason":
+                    Util.setPlayerMessage(player, "Reason: " +Util.getGreenColor() + configurationSection.get("reason"));
+                    break;
+                case "reported by":
+                    Util.setPlayerMessage(player, "Reported by: " + Util.getGreenColor()+ configurationSection.get("reported by"));
+                    break;
+                case "date":
+                    Util.setPlayerMessage(player, "Date: " + Util.getGreenColor() + configurationSection.get("date"));
+                    break;
+            }
+        }
+    }
+
     private void help(Player player){
         String message = "Command usage: " + Util.getGreenColor() + "/report version\n/report reload";
         Util.setPlayerMessage(player, message);
@@ -82,7 +127,13 @@ public class reportCommand implements CommandExecutor {
 
         if (!offlinePlayer.hasPlayedBefore()) { Util.setPlayerMessage(player, "The specified player doesn't exist or is not online"); return; }
 
+        if (!test.getReportConfiguration().hasSectionPath(offlinePlayer.getUniqueId().toString())) { Util.setPlayerMessage(player, "The specified player does not have any report"); return; }
+
         Util.setPlayerMessage(player, "Cleared " + Util.getGreenColor() + offlinePlayer.getName() + Util.getBlueColor() + " report");
+
+        test.getReportConfiguration().set(offlinePlayer.getUniqueId().toString(), null);
+
+        test.getReportConfiguration().saveConfiguration();
     }
     private void report(Player player, String[] args){
         Player target = player.getServer().getPlayerExact(args[0]);
