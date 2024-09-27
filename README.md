@@ -30,6 +30,7 @@ I have integated a system to the plugin where if the plugin is loaded, and this 
     <summary>/report check <player></summary>
     Check the specified player's report data.
   </details>
+      
 ## report.yml (example)`
 ```
 f798e323-b270-30de-9547-b053e429138b:
