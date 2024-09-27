@@ -22,9 +22,13 @@ I have integated a system to the plugin where if the plugin is loaded, and this 
   <summary>Reloads the necessary files.</summary>
 </details>
 `/report clear <player>`
-Clears the specified player's report data.
+  <details>
+    <summary>Clears the specified player's report data.</summary>
+  </details>
 `/report check <player>`
-Check the specified player's report data.
+  <details>
+    <summary>Check the specified player's report data.</summary>
+  </details>
 ## report.yml (example)`
 ```
 f798e323-b270-30de-9547-b053e429138b:
