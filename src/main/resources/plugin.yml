@@ -1,4 +1,4 @@
-name: Test
+name: Report
 version: ${project.version}
 main: com.clarence.test.Test
 api-version: '1.21'

@@ -31,8 +31,8 @@ public class reportCommand implements CommandExecutor {
         }
 
         switch (args[0]) {
-            case "show":
-                show(player, args);
+            case "check":
+                check(player, args);
                 break;
             case "clear":
                 clear(player, args);
@@ -53,8 +53,8 @@ public class reportCommand implements CommandExecutor {
         return false;
     }
 
-    private void show(Player player, String[] args) {
-        String message = "Command usage: " + Util.getGreenColor() + "/report show <player>";
+    private void check(Player player, String[] args) {
+        String message = "Command usage: " + Util.getGreenColor() + "/report check <player>";
 
         if (args.length == 1) {
             Util.setPlayerMessage(player, message);
@@ -92,7 +92,7 @@ public class reportCommand implements CommandExecutor {
     }
 
     private void help(Player player){
-        String message = "Command usage: " + Util.getGreenColor() + "/report version\n/report reload";
+        String message = "Command usage: " + Util.getGreenColor() + "/report version\n/report reload\n/report clear <player>\n/report check <player>";
         Util.setPlayerMessage(player, message);
     }
     private void version(Player player) {
@@ -147,6 +147,11 @@ public class reportCommand implements CommandExecutor {
         if (args.length == 1) {
             String invalid = "Enter a reason on why you report this player";
             Util.setPlayerMessage(player, invalid);
+            return;
+        }
+
+        if (target == player) {
+            Util.setPlayerMessage(player, "You can't report yourself");
             return;
         }
 
