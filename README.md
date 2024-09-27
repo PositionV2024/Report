@@ -1,6 +1,6 @@
 ![A report system that allows you to report players](https://raw.githubusercontent.com/PositionV2024/Test/refs/heads/main/media/Screenshot%202024-09-21%20113646.png)
 # Project test
-Dummy description for dummy.
+Report others for naughty behaviours. When you report someone, a new report will be generated into the report file. This includes, the name of the player that is reported, the name of the player that reports, the reported reason, and finally, the time that the report was made. Server owners can check player's report through in-game. This is to ensure that server owners will have a better time managing reported players.
 ## Features
 ### Report data
 When you report a player, a report data will be generated in the report file. This includes, the name of the player that is reported, the name of the player that reports, the reported reason, and finally, the time that the report was made.
