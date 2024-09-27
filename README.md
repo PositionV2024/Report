@@ -15,6 +15,7 @@ I have integated a system to the plugin where if the plugin is loaded, and this 
 ## Commands
 <details>
   <summary>/report version.</summary>
+  Get the latest update.
 </details>
 <details>
   <summary>/report reload</summary>
@@ -25,7 +26,6 @@ I have integated a system to the plugin where if the plugin is loaded, and this 
     <summary>/report clear <player></summary>
     Clears the specified player's report data.
   </details>
-/report check <player>
   <details>
     <summary>/report check <player></summary>
     Check the specified player's report data.
