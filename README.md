@@ -14,8 +14,8 @@ Clear player's report data when it is no longer required.
 I have integated a system to the plugin where if the plugin is loaded, and this github release page is updated, you will receive new updates via in-game. You can also disable this through the config file.
 ## Commands
 <details>
-  <summary>/report version.</summary>
-  Get the latest update.
+  <summary>/report version</summary>
+  Get the latest plugin update.
 </details>
 <details>
   <summary>/report reload</summary>
