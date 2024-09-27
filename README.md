@@ -16,8 +16,11 @@ I have integated a system to the plugin where if the plugin is loaded, and this 
 `/report version`
 Check the latest version of the plugin.
 `/report reload`
+Reloads the necessary files.
 `/report clear <player>`
+Clears the specified player's report data.
 `/report check <player>`
+Check the specified player's report data.
 ## report.yml (example)`
 ```
 f798e323-b270-30de-9547-b053e429138b:
