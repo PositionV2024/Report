@@ -21,7 +21,6 @@ I have integated a system to the plugin where if the plugin is loaded, and this 
   <summary>/report reload</summary>
   Reloads the necessary files.
 </details>
-/report clear <player>
   <details>
     <summary>/report clear <player></summary>
     Clears the specified player's report data.
